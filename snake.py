@@ -58,7 +58,7 @@ def change_direction(event):
         velocityY = 0
 
 def move():
-    global snake, food, game_over, snake_body
+    global snake, food, game_over, snake_body, score
     if game_over:
         return
     
@@ -79,6 +79,7 @@ def move():
         # generate new food
         food.x = random.randint(0, COLS - 1) * TILE_SIZE
         food.y = random.randint(0, ROWS - 1) * TILE_SIZE
+        score += 1
     
     #check for wall collision
     if (snake.x < 0 or snake.x >= WINDOW_WIDTH or 
@@ -104,11 +105,14 @@ def move():
         snake_body[0].y = prev_y
     
 def draw():
-    global snake
+    global snake, score, food, snake_body, game_over
     move()
     
     canvas.delete("all")  #clear the canvas
     
+     # draw score at the top left
+    canvas.create_text(10, 10, anchor="nw", text=f"Score: {score}", fill="white", font=("Arial", 18))
+
     #draw food
     canvas.create_rectangle(food.x, food.y, food.x + TILE_SIZE, food.y + TILE_SIZE, fill="red", outline="black")
     
@@ -119,7 +123,7 @@ def draw():
     for tile in snake_body:
         canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill="lime green", outline="black")
 
-    window.after(75, draw) #100ms = 1/10 second, 10 FPS 
+    window.after(75, draw) 
 
     if game_over:
         canvas.create_text(
@@ -135,7 +139,7 @@ def restart_game(event=None):
     snake = Tile(5 * TILE_SIZE, 5 * TILE_SIZE)
     food = Tile(random.randint(0, COLS - 1) * TILE_SIZE, random.randint(0, ROWS - 1) * TILE_SIZE)
     snake_body = []
-    velocityX = 0  # Start moving right
+    velocityX = 0  
     velocityY = 0
     game_over = False
     score = 0

@@ -1,9 +1,9 @@
 import tkinter
 import random
 
-ROWS = 25
-COLS = 25
-TILE_SIZE = 25
+ROWS = 32
+COLS = 48
+TILE_SIZE = 20
 
 WINDOW_WIDTH = TILE_SIZE * COLS
 WINDOW_HEIGHT = TILE_SIZE * ROWS
@@ -15,23 +15,19 @@ class Tile:
 
 #game window
 window = tkinter.Tk()
-window.title("Snake Game")
-window.resizable(False, False)
-
-canvas = tkinter.Canvas(window, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg="black", highlightthickness=0, borderwidth=0)
+window.focus_set()
+canvas = tkinter.Canvas(window, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg="black", highlightthickness=1, borderwidth=1)
 canvas.pack()
-window.update()
+canvas.create_rectangle(100, 100, 120, 120, fill="red")
+window.title("Snake Game")
+window.resizable(False, False)  # Disable resizing
 
 #center the window
-window_width = window.winfo_width()
-window_height = window.winfo_height()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
-
-window_x = (screen_width - window_width) // 2
-window_y = (screen_height - window_height) // 2
-
-window.geometry(f"{window_width}x{window_height}+{window_x}+{window_y}")
+window_x = (screen_width - WINDOW_WIDTH) // 2
+window_y = (screen_height - WINDOW_HEIGHT) // 2
+window.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{window_x}+{window_y}")
 
 #intialize game
 snake = Tile(5 * TILE_SIZE, 5 * TILE_SIZE)
@@ -41,6 +37,7 @@ velocityX = 0
 velocityY = 0
 game_over = False
 score = 0
+
 
 def change_direction(event):
     global velocityX, velocityY, game_over
@@ -71,7 +68,6 @@ def move():
     snake.x += velocityX * TILE_SIZE
     snake.y += velocityY * TILE_SIZE
     
-# ...existing code...
     #check for food collision
     if snake.x == food.x and snake.y == food.y:
         # grow snake at the last tail position
@@ -83,7 +79,6 @@ def move():
         # generate new food
         food.x = random.randint(0, COLS - 1) * TILE_SIZE
         food.y = random.randint(0, ROWS - 1) * TILE_SIZE
-# ...existing code...
     
     #check for wall collision
     if (snake.x < 0 or snake.x >= WINDOW_WIDTH or 
@@ -101,7 +96,7 @@ def move():
     # update snake body positions
     if snake_body:
         # move each segment to the position of the previous segment
-        for i in range(len(snake_body) - 1, 0, -1):
+        for i in range(len(snake_body) - 1, -1, -1):
             snake_body[i].x = snake_body[i - 1].x
             snake_body[i].y = snake_body[i - 1].y
         # first segment follows the previous head position
@@ -123,11 +118,28 @@ def draw():
     #draw snake body
     for tile in snake_body:
         canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill="lime green", outline="black")
-    
-    window.after(100, draw) #100ms = 1/10 second, 10 FPS
-    
+
+    window.after(75, draw) #100ms = 1/10 second, 10 FPS 
+
+    if game_over:
+        canvas.create_text(
+        WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,
+        text="Game Over! Press 'r' to restart.",
+        fill="white", font=("Arial", 24)
+    )
+    return
 draw()
 
+def restart_game(event=None):
+    global snake, food, snake_body, velocityX, velocityY, game_over, score
+    snake = Tile(5 * TILE_SIZE, 5 * TILE_SIZE)
+    food = Tile(random.randint(0, COLS - 1) * TILE_SIZE, random.randint(0, ROWS - 1) * TILE_SIZE)
+    snake_body = []
+    velocityX = 0  # Start moving right
+    velocityY = 0
+    game_over = False
+    score = 0
 
 window.bind("<KeyPress>", change_direction)
+window.bind("r", restart_game)
 window.mainloop()

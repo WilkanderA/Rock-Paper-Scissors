@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Dragonfly Bistro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f8f5f2; }
+        header { background: #e0c2db; padding: 20px 0; text-align: center; }
+        #header-img { width: 120px; border-radius: 50%; }
+        nav { margin: 20px 0; }
+        nav a { margin: 0 15px; font-weight: bold; color: #333; text-decoration: none; }
+        main { max-width: 800px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px #ccc; text-align: center;}
+        section { margin-bottom: 40px; }
+        article { display: flex; align-items: center; margin-bottom: 25px; background: #e9ecef; padding: 15px; border-radius: 8px;}
+        article img { width: 90px; height: 90px; object-fit: cover; border-radius: 8px; margin-right: 20px; }
+        h1, h2 { color: #000000; }
+        h3 { margin: 0 0 8px 0; }
+        i { color: #204051; }
+        label { display: block; margin-top: 10px; }
+        input[type="number"] { width: 50px; }
+        textarea { width: 100%; height: 60px; margin-top: 10px; }
+        footer { background: #e0c2db; text-align: center; padding: 15px 0; margin-top: 40px; }
+        .form-group { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://afullliving.com/wp-content/uploads/2022/08/Lemon-Herb-Chicken-1200-x-1200.png" id="header-img" alt="Dragonfly Bistro Logo">
+        <h1>Dragonfly Bistro</h1>
+        <nav>
+            <a href="#menu">Menu</a>
+            <a href="#order-form">Place Your Order</a>
+        </nav>
+    </header>
+    <main>
+        <section id="menu">
+            <h2>Menu</h2>
+            <article>
+                <img src="https://s3.amazonaws.com/grazecart/fergusonfarmbirds/images/1722814703_66b010efef97b.jpg" alt="Lemon Herb Chicken">
+                <div>
+                    <h3>Lemon Herb Chicken</h3>
+                    <p>Juicy grilled chicken breast marinated in fresh lemon and herbs. Served with roasted vegetables. <br><i>$14.99</i></p>
+                </div>
+            </article>
+            <article>
+                <img src="https://www.inspiredtaste.net/wp-content/uploads/2019/02/Vegetable-Spaghetti-Recipe-2-1200.jpg" alt="Vegetarian Pasta">
+                <div>
+                    <h3>Vegetarian Pasta</h3>
+                    <p>Penne pasta tossed in a creamy tomato sauce with seasonal veggies and parmesan. <br><i>$12.49</i></p>
+                </div>
+            </article>
+            <article>
+                <img src="https://www.billyparisi.com/wp-content/uploads/2022/02/lava-cake-1.jpg" alt="Chocolate Lava Cake">
+                <div>
+                    <h3>Chocolate Lava Cake</h3>
+                    <p>Warm chocolate cake with a gooey center, topped with vanilla ice cream. <br><i>$6.99</i></p>
+                </div>
+            </article>
+        </section>
+        <br><hr><br>
+        <section id="order-form">
+            <h2>Place Your Order</h2>
+            <form>
+                <div class="form-group">
+                    <label for="chicken">Lemon Herb Chicken (Qty):</label>
+                    <input type="number" id="chicken" name="chicken" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="pasta">Vegetarian Pasta (Qty):</label>
+                    <input type="number" id="pasta" name="pasta" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="cake">Chocolate Lava Cake (Qty):</label>
+                    <input type="number" id="cake" name="cake" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Sides:</label>
+                    <label for="garden_salad">Garden Salad</label>
+                    <input type="checkbox" id="garden_salad" name="sides">
+                    <label for="fries">Sweet Potato Fries</label>
+                    <input type="checkbox" id="fries">
+                </div>
+                <div class="form-group">
+                    <label>Drink:</label>
+                    <input type="radio" id="water" name="drink" value="Water">
+                    <label for="water">Water</label>
+                    <input type="radio" id="tea" name="drink" value="Iced Tea">
+                    <label for="tea">Iced Tea</label>
+                    <input type="radio" id="none" name="drink" value="None" checked>
+                    <label for="none">None</label>
+                </div>
+                <div class="form-group">
+                    <label for="requests">Special Requests:</label>
+                    <textarea id="requests" name="requests" placeholder="Let us know about allergies or preferences..."></textarea>
+                </div>
+                <input type="submit" value="Go To Checkout" style="background:#3b6978;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Made with love by <b>0xDEMON</b></p>
